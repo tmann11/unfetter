@@ -17,8 +17,9 @@ services:
     volumes:
      - ./config/nginx/conf.d.aot:/etc/nginx/conf.d
      - ./config/nginx/conf.d.extra/:/etc/nginx/conf.d.extra
+     - ./config/nginx/error-pages/:/etc/nginx/html/error-pages
      - ./certs/:/etc/pki/tls/certs
-     - ../unfetter-ui/dist:/etc/nginx/html
+     - ../unfetter-ui/dist:/etc/nginx/html/unfetter-ui
 
   unfetter-discover-openssl:
     image: svagi/openssl:latest

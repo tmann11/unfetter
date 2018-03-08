@@ -18,6 +18,7 @@ services:
     volumes:
      - ./config/nginx/conf.d.angular:/etc/nginx/conf.d
      - ./config/nginx/conf.d.extra/:/etc/nginx/conf.d.extra
+     - ./config/nginx/error-pages/:/etc/nginx/html/error-pages
      - ./certs/:/etc/pki/tls/certs
 
   unfetter-discover-openssl:
