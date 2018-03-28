@@ -15,9 +15,9 @@ if [ -d '../unfetter-ui' ]; then
     # Build UI
     cd ../unfetter-ui;
     if [[ "$(uname -s)" == "Darwin" ]]; then
-        docker-compose -f docker-compose.build-ui.yml up;
+        docker-compose -f docker-compose.ui.yml up;
     else
-        sudo docker-compose -f docker-compose.build-ui.yml up;
+        sudo docker-compose -f docker-compose.ui.yml up;
     fi
 
     if [ ! -d 'dist' ]; then
@@ -32,9 +32,9 @@ if [ -d '../unfetter-ui' ]; then
     # Run docker compose
     cd ../unfetter;
     if [[ "$(uname -s)" == "Darwin" ]]; then
-        docker-compose -f docker-compose.build-docker-hub.yml build;
+        docker-compose -f docker-compose.yml -f docker-compose.development.yml -f docker-compose.gateway.yml  build;
     else
-        sudo docker-compose -f docker-compose.build-docker-hub.yml build;
+        sudo docker-compose -f docker-compose.yml -f docker-compose.development.yml -f docker-compose.gateway.yml  build;
     fi
 else
     echo "This script requires the unfetter-ui to be present as a sibling directory to unfetter.";

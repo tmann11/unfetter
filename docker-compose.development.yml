@@ -6,18 +6,19 @@ services:
     volumes:
      - ./config/nginx/uac-locations.conf:/etc/nginx/conf.d.runmode/runmode-locations.conf
      - ./config/nginx/ui-dev.conf:/etc/nginx/conf.d.runmode/ui.conf
+     
 
   unfetter-discover-processor:
     build: ../unfetter-store/unfetter-discover-processor
     container_name: unfetter-discover-processor
-    image: unfetter-discover-processor
+    image: unfetter-discover-processor:${DEV_TAG}
     volumes:
     #  TODO find a working volume mounting
      - ../unfetter-store/unfetter-discover-processor/processor.js:/usr/src/app/processor.js
   unfetter-ctf-ingest:
     build: ../unfetter-store/unfetter-ctf-ingest
     container_name: unfetter-ctf-ingest
-    image: unfetter-ctf-ingest
+    image: unfetter-ctf-ingest:${DEV_TAG}
     volumes:
      - ../unfetter-store/unfetter-ctf-ingest/test-data:/tmp/test-data
     ports:
@@ -26,7 +27,7 @@ services:
   unfetter-socket-server:
     build: ../unfetter-store/unfetter-socket-server
     container_name: unfetter-socket-server
-    image: unfetter-socket-server
+    image: unfetter-socket-server:${DEV_TAG}
     volumes:
       - ./certs/:/etc/pki/tls/certs
       - ../unfetter-store/unfetter-socket-server/src:/usr/share/unfetter-socket-server/src
@@ -70,7 +71,7 @@ services:
       context: ../unfetter-store
       dockerfile: unfetter-api-explorer/parent-context.Dockerfile
     container_name: unfetter-api-explorer
-    image: unfetter-api-explorer
+    image: unfetter-api-explorer:${DEV_TAG}
     volumes:
      - ../unfetter-store/unfetter-api-explorer/src:/usr/share/unfetter-api-explorer/src
      - ../unfetter-store/unfetter-discover-api/multifile-remote.yaml:/usr/share/unfetter-discover-api/multifile-remote.yaml
@@ -84,7 +85,7 @@ services:
   unfetter-discover-api:
     build: ../unfetter-store/unfetter-discover-api
     container_name: unfetter-discover-api
-    image: unfetter-discover-api
+    image: unfetter-discover-api:${DEV_TAG}
     depends_on:
     - unfetter-socket-server
     links:
@@ -110,7 +111,7 @@ services:
 
   unfetter-ui:
     build: ../unfetter-ui
-    image: unfetter-ui
+    image: unfetter-ui:${DEV_TAG}
     container_name: unfetter-ui
     volumes:
     - ../unfetter-ui/src:/usr/share/unfetter-ui/src
@@ -123,7 +124,7 @@ services:
   unfetter-pattern-handler:
     build: ../stix2pattern
     container_name: unfetter-pattern-handler
-    image: unfetter-pattern-handler
+    image: unfetter-pattern-handler:${DEV_TAG}
     volumes:
       - ../stix2pattern/app.py:/opt/stix/app.py
       - ../stix2pattern/test.py:/opt/stix/test.py

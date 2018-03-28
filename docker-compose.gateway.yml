@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+  unfetter-discover-gateway:
+    build: ./gateway
+    image: unfetter-discover-gateway:${DEPLOY_TAG}
+    container_name: unfetter-discover-gateway
+    ports:
+     - "443:443"
+     - "80:80"
+    depends_on:
+     - unfetter-discover-openssl
+    links:
+     - unfetter-api-explorer
+     - unfetter-discover-api
+    volumes:
+     - ./config/nginx/conf.d:/etc/nginx/conf.d
+     - ./config/nginx/conf.d.extra/:/etc/nginx/conf.d.extra
+     - ./certs/:/etc/pki/tls/certs
